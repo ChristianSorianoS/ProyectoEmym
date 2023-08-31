@@ -1,0 +1,80 @@
+<div class="register-container">
+  <div class="form-container">
+    <h2>Registrate en Entre migas y masas</h2>
+    <nz-alert
+      *ngIf="errorMessage"
+      nzShowIcon
+      nzType="error"
+      [nzMessage]="errorMessage"
+      [ngStyle]="{ 'margin-bottom': '16px' }"
+    ></nz-alert>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+        <label for="fullName">Nombre completo</label>
+        <input
+          nz-input
+          type="text"
+          name="fullName"
+          [(ngModel)]="fullName"
+          placeholder="Ingresa tu nombre completo"
+        />
+      </div>
+      <div class="input-container">
+        <label for="email">Email</label>
+        <input
+          nz-input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Ingresa tu correo"
+        />
+      </div>
+      <div class="🤪">
+        <div class="input-container">
+          <label for="password">Contraseña</label>
+          <input
+            nz-input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Ingresa una contraseña"
+          />
+        </div>
+        <div class="input-container">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <input
+            nz-input
+            type="password"
+            name="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            placeholder="Re ingresa tu contraseña"
+          />
+        </div>
+      </div>
+      <div class="✅">
+        <div class="checkbox-container">
+          <input nz-input type="checkbox" />
+          <span> Acepto recibir ofertas y promociones a mi correo</span>
+        </div>
+        <div class="checkbox-container">
+          <input nz-input type="checkbox" />
+          <span> Acepto los T&C de EMYM</span>
+        </div>
+      </div>
+      <div class="cta-container">
+        <!-- <input type="submit" value="Sign up" /> -->
+        <button
+          nz-button
+          type="submit"
+          [disabled]="!canSubmit()"
+          [nzLoading]="loading"
+        >
+          Registrarse
+        </button>
+        <div>
+          <div><a routerLink="/login">Iniciar sesion con un usuario existente</a></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

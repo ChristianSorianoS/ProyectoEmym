@@ -1,0 +1,54 @@
+<div class="manage-product-container" *ngIf="!loading">
+  <div>
+    <div class="manage-buttons">
+      <button
+        nz-button
+        nzType="primary"
+      >
+        Añadir nuevo producto
+      </button>
+
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="setOfCheckedId.size === 0"
+        [nzLoading]="loading"
+        (click)="showModal()"
+      >
+        Eliminar seleccionados
+      </button>
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="¿Confirmar acción?" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <p>Eliminar los {{ setOfCheckedId.size }} items seleccionados</p>
+        </ng-container>
+      </nz-modal>
+      <span>Items {{ setOfCheckedId.size }} seleccionados</span>
+    </div>
+  <nz-table #basicTable nzShowPagination nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="products" *ngIf="products.length > 0">
+    <thead>
+      <tr>
+        <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Descripcion</th>
+        <th>Precio</th>
+        <th>Categoria</th>
+        <th>Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td
+          [nzChecked]="setOfCheckedId.has(item.id)"
+          (nzCheckedChange)="onItemChecked(item.id, $event)"
+        ></td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.short_desc }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.category }}</td>
+        <td><a>Modificar</a> - <a>Eliminar</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

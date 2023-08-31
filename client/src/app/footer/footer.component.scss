@@ -1,0 +1,17 @@
+.footer-container {
+    height: 100px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > div {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .anticon {
+        font-size: 2em;
+        padding: 0 1em;
+    }
+  }
