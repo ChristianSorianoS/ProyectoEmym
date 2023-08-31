@@ -32,25 +32,12 @@
     </div>
     <div class="product-container__details">
       <h2 class="title">{{ product.title }}</h2>
-      <div class="reviews">
-        <div class="rating">
-          <i nz-icon nzType="star" nzTheme="fill"></i>
-          <i nz-icon nzType="star" nzTheme="fill"></i>
-          <i nz-icon nzType="star" nzTheme="fill"></i>
-          <i nz-icon nzType="star" nzTheme="fill"></i>
-          <i nz-icon nzType="star"></i>
-        </div>
-        <span class="review-link"
-          >10 Review(s) |
-          <span style="cursor: pointer">Dejar una opinion</span></span
-        >
-      </div>
       <div class="price-container">
         <h2 class="price">{{ product.price | currency: "CLP" }}</h2>
         <span
           class="availability"
           [ngStyle]="{ color: quantity > 0 ? 'inherit' : 'red' }"
-          >{{ quantity === 0 ? "Out of stock" : "In stock" }}</span
+          >{{ quantity === 0 ? "Sin stock" : quantity + " disponible" }}</span
         >
       </div>
       <div class="description">{{ product.description }}</div>
@@ -58,7 +45,7 @@
         <div class="add-to-cart">
           <span>Cantidad:</span>
           <nz-input-number
-            [(ngModel)]="quantity"
+            [(ngModel)]="quantityToOrder"
             [nzMin]="product.quantity > 0 ? 1 : 0"
             [nzMax]="product.quantity > 0 ? product.quantity : 0"
             [nzStep]="1"
@@ -74,13 +61,6 @@
         </div>
         <div class="category">
           <span>Categoria: </span> {{ product.category }}
-        </div>
-        <div class="social-links">
-          <span>Compartir: </span>
-          <i nz-icon nzType="facebook" nzTheme="outline"></i>
-          <i nz-icon nzType="twitter" nzTheme="outline"></i>
-          <i nz-icon nzType="google-plus" nzTheme="outline"></i>
-          <i nz-icon nzType="mail" nzTheme="outline"></i>
         </div>
       </div>
     </div>

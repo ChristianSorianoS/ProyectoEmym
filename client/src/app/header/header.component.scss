@@ -11,13 +11,6 @@
     align-items: center;
   }
   &__left {
-    .desktop-menu{
-      a{
-        font-size: 1.25em;
-        padding: 0 1em;
-        text-decoration: none;
-      }
-    }
     button{
       display: none !important;
     }
@@ -26,11 +19,14 @@
     flex-grow: 1;
     text-align: center;
     .logo{
-      position: fixed;
-      left: 50%
+      position: sticky;
+      left: 45%
     }
   }
   &__right {
+    .desktop-menu{
+      padding: 0 30px;
+    }
     position: relative;
     .cart-counter {
       color: #fff;
@@ -50,23 +46,24 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   .header-container {
     padding: 0 24px;
     &__left {
-      .desktop-menu{
-        display: none !important;  
-      }
       button{
         display: flex !important;
       }
     }
-    
-  &__middle {
-    .logo{
-      left: 40%
+    &__right {
+      .desktop-menu{
+        display: none !important;  
+      }
     }
-  }
+    &__middle {
+      .logo{
+        left: 40%
+      }
+    }
   }
 }
 
@@ -212,7 +209,7 @@
         }
       }
     }
-    .🍑 {
+    .bottom-menu {
       position: absolute;
       bottom: 0;
       left: 24px;
@@ -251,4 +248,14 @@
 .darken-background.enable {
   background-color: rgba(0, 0, 0, 0.5);
   pointer-events: auto;
+}
+
+[nz-menu] {
+  width: 200px;
+  i{
+    font-size: 1.15em;
+  }
+  li{
+    font-size: 1.25em;
+  }
 }

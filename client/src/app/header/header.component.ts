@@ -3,6 +3,8 @@ import { HostListener } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { NzPlacementType } from 'ng-zorro-antd/dropdown';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -10,38 +12,27 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  screenHeight: any;
-  screenWidth: any;
+  menuPosition: NzPlacementType = 'bottomRight'
   isMenuOpen = false;
-  isMobile = false;
   isLoggedIn = false;
   isAdmin = false;
   dropdownVisible = false;
   cartData: any;
-
-  @HostListener('window:resize', ['$event'])
-  getScreenSize(event?) {
-    this.screenHeight = window.innerHeight;
-    this.screenWidth = window.innerWidth;
-
-    if (this.screenWidth > 768) this.isMobile = false;
-    else this.isMobile = true;
-  }
+  loggedUser: User;
 
   constructor(
     private _token: TokenStorageService,
     private _auth: AuthService,
     private _cart: CartService
-  ) {
-    
-    this.isLoggedIn = false;
-    this.getScreenSize();
+  ) { 
     this._auth.user.subscribe((user) => {
       this.isLoggedIn = false;
-      if (user){ 
+      if (user) {
         this.isLoggedIn = true;
-        if(user.role === 777) { 
+        this.loggedUser = user;
+        if (user.role === 777) {
           this.isAdmin = true;
+          delete this.loggedUser;
         }
       }
     });
@@ -50,9 +41,17 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    if (this._token.getUser()) this.isLoggedIn = true;
-    else this.isLoggedIn = false;
+  async ngOnInit(): Promise<void> {
+    const user = this._token.getUser();
+    if (user) {
+      this.isLoggedIn = true;
+      this.loggedUser = user;
+    }
+    else {
+      this.isLoggedIn = false;
+      delete this.loggedUser;
+    }
+
   }
 
   toggleMenu() {

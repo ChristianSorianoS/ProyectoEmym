@@ -1,6 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import en from '@angular/common/locales/en';
+import es from '@angular/common/locales/es';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +18,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { SwiperModule } from 'swiper/angular';
 import { ManageProductComponent } from './admin/product/manage-product.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +39,7 @@ import { ProductComponent } from './product/product.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './services/interceptor.service';
 
-registerLocaleData(en);
+registerLocaleData(es);
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     NzButtonModule,
     NzDropDownModule,
+    NzMenuModule,
     NzIconModule,
     NzInputModule,
     NzAlertModule,

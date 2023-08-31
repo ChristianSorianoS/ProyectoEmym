@@ -39,6 +39,7 @@ export class ProductComponent implements OnInit {
   id: number;
   product: any;
   quantity: number;
+  quantityToOrder: number = 0;
   showcaseImages: any[] = [];
   loading = false;
 
@@ -63,7 +64,10 @@ export class ProductComponent implements OnInit {
           console.log(product);
           this.product = product;
           if (product.quantity === 0) this.quantity = 0;
-          else this.quantity = 1;
+          else {
+            this.quantity = product.quantity;
+            this.quantityToOrder = 1;
+          }
 
           if (product.images) {
             this.showcaseImages = product.images.split(';');

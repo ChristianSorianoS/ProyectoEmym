@@ -7,13 +7,12 @@
     "start": "set NODE_ENV=production&& node app",
     "dev": "set NODE_ENV=development&& nodemon app"
   },
-  "author": "Michael Parkadze",
-  "license": "ISC",
+  "author": "Christian Soriano",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "firebase": "^10.1.0",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "md5": "^2.3.0",

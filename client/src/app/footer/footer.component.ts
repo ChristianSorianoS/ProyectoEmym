@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SOCIALS_URL } from '../common/commonMapper';
 
 @Component({
   selector: 'app-footer',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-
+  URLS = SOCIALS_URL;
   constructor() { }
 
   ngOnInit(): void {

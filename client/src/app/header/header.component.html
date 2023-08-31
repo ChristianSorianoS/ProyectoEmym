@@ -14,22 +14,29 @@
         [ngStyle]="{ 'font-size': '1.25rem', 'padding-top': '6px' }"
       ></i>
     </button>
-    <div class="desktop-menu">
-      <div *ngIf="isLoggedIn" >
-        <a routerLink="/profile">Perfil</a>
-        <a *ngIf="isAdmin" routerLink="/admin/products">Administrar</a>
-        <a routerLink="/order-history">Historial de ordenes</a>
-        <a routerLink="/" (click)="logout()">Cerrar sesion</a>
-      </div>
-      <div *ngIf="!isLoggedIn" >
-        <a routerLink="/login">Iniciar sesion</a>
-      </div>
-    </div>
   </div>
   <div class="header-container__middle">
-    <img class="logo" routerLink="/" src="../../assets/logo_emym_nobg.png" alt="logo_emym" width="100px">
+    <div class="logo">
+      <img class="logo-img" routerLink="/" src="../../assets/logo_emym_nobg.png" alt="logo_emym" width="100px"></div>
   </div>
   <div class="header-container__right">
+    <div class="desktop-menu">
+      <div *ngIf="isLoggedIn && loggedUser" >
+        <button nz-button nzType="primary" nzShape="round" nzSize="large" nz-dropdown [nzDropdownMenu]="menuLogged" [nzPlacement]="menuPosition"><i nz-icon nzType="user"></i>{{loggedUser.fname}}</button>
+        <nz-dropdown-menu #menuLogged="nzDropdownMenu">
+          <ul nz-menu nzInlineIndent=60>
+            <li nz-menu-item *ngIf="isAdmin" routerLink="/admin/products"><i nz-icon nzType="database"></i>Administrar</li>
+            <li nz-menu-item routerLink="/order-history"><i nz-icon nzType="barcode"></i>Mis pedidos</li>
+            <li nz-menu-item routerLink="/profile"><i nz-icon nzType="setting"></i>Mi perfil</li>
+            <li nz-menu-item routerLink="/" (click)="logout()"><i nz-icon nzType="logout"></i>Cerrar sesion</li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+      <div *ngIf="!isLoggedIn" >
+        <button nz-button nzType="primary" nzShape="round" nzSize="large" routerLink="/login">
+          <i nz-icon nzType="login"></i>Iniciar sesion</button>
+      </div>
+    </div>
     <ng-container>
       <div class="cart-counter">{{ cartData.products.length }}</div>
       <button
@@ -138,17 +145,16 @@
 <div [className]="isMenuOpen ? 'side-menu show' : 'side-menu'">
   <i nz-icon nzType="close" nzTheme="outline" (click)="toggleMenu()"></i>
   <div class="side-menu__content">
-    <h2 routerLink="/" (click)="toggleMenu()">EMYM</h2>
+    <h2 routerLink="/" (click)="toggleMenu()">Entre migas y masas</h2>
     <nav>
       <ul>
+        <li *ngIf="isAdmin" routerLink="/admin/products">Administrar</li>
         <li routerLink="/cart" (click)="toggleMenu()">Carro</li>
+        <li routerLink="/order-history" (click)="toggleMenu()">Mis pedidos</li>
         <li routerLink="/profile" (click)="toggleMenu()">Perfil</li>
-        <li routerLink="/order-history" (click)="toggleMenu()">
-          Historial de ordenes
-        </li>
       </ul>
     </nav>
-    <div class="🍑">
+    <div class="bottom-menu">
       <button
         nz-button
         routerLink="/login"
