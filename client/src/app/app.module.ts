@@ -2,7 +2,7 @@ import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import es from '@angular/common/locales/es';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
@@ -20,6 +20,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { SwiperModule } from 'swiper/angular';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { ManageProductComponent } from './admin/product/manage-product.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductComponent } from './product/product.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './services/interceptor.service';
+import { CreateProductComponent } from './admin/product/create/create-product.component';
 
 registerLocaleData(es);
 
@@ -55,7 +57,8 @@ registerLocaleData(es);
     HeaderComponent,
     FooterComponent,
     ProductCardComponent,
-    ManageProductComponent
+    ManageProductComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule,
@@ -72,12 +75,14 @@ registerLocaleData(es);
     NzInputModule,
     NzAlertModule,
     NzInputNumberModule,
+    NzFormModule,
     SwiperModule,
     NzSpinModule,
     NzNotificationModule,
     NzProgressModule,
     NzTableModule,
-    NzModalModule
+    NzModalModule,
+    ReactiveFormsModule
   ],
   providers: [
     authInterceptorProviders,

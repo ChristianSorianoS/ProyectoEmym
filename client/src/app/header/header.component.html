@@ -1,6 +1,7 @@
 <header class="header-container">
   <div class="header-container__left">
     <button
+      class="menu-mobile"
       nz-button
       nzType="text"
       size="large"
@@ -14,6 +15,16 @@
         [ngStyle]="{ 'font-size': '1.25rem', 'padding-top': '6px' }"
       ></i>
     </button>
+    <ul nz-menu nzMode="horizontal">
+      <li nz-submenu nzTitle="Productos" nzMatchRouter>
+        <ul>
+          <li routerLink="/category/pan" nz-menu-item>Panaderia</li>
+          <li routerLink="/category/pan" nz-menu-item>Pasteleria</li>
+        </ul>
+      </li>
+      <li nz-menu-item nzMatchRouter> 
+          <a routerLink="/about"></a>Nosotros</li>
+      </ul>
   </div>
   <div class="header-container__middle">
     <div class="logo">

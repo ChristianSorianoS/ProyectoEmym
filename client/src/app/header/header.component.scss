@@ -11,7 +11,11 @@
     align-items: center;
   }
   &__left {
-    button{
+    [nz-menu] {
+      font-size: 1.25em;
+      border-bottom: none !important;
+    }
+    .menu-mobile{
       display: none !important;
     }
   }
@@ -24,6 +28,15 @@
     }
   }
   &__right {
+    [nz-menu] {
+      width: 200px;
+      i{
+        font-size: 1.15em;
+      }
+      li{
+        font-size: 1.25em;
+      }
+    }
     .desktop-menu{
       padding: 0 30px;
     }
@@ -50,7 +63,10 @@
   .header-container {
     padding: 0 24px;
     &__left {
-      button{
+      [nz-menu] {
+        display: none !important;
+      }
+      .menu-mobile{
         display: flex !important;
       }
     }
@@ -250,12 +266,3 @@
   pointer-events: auto;
 }
 
-[nz-menu] {
-  width: 200px;
-  i{
-    font-size: 1.15em;
-  }
-  li{
-    font-size: 1.25em;
-  }
-}

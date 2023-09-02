@@ -104,12 +104,25 @@ export class ManageProductComponent implements OnInit {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
+    this.loading = true;
+    const id = this.setOfCheckedId.size[0];
+    console.log(id)
+    setTimeout(() => {
+      this.productService.deleteProduct(id).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.loading = false;
+        },
+        (err) => {
+          console.log(err);
+          this.loading = false;
+        }
+      );
+    }, 500);
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 }

@@ -11,6 +11,7 @@ import { RegisterComponent } from './auth/components/register/register.component
 import { AuthGuardService } from './guards/auth-guard.service';
 import { ManageProductComponent } from './admin/product/manage-product.component';
 import { AdminGuardService } from './guards/admin-guard.service';
+import { CreateProductComponent } from './admin/product/create/create-product.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,8 +34,18 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
+    path: 'about',
+    component: OrderHistoryComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
     path: 'admin/products',
     component: ManageProductComponent,
+    canActivate: [AdminGuardService],
+  },
+  {
+    path: 'admin/products/create',
+    component: CreateProductComponent,
     canActivate: [AdminGuardService],
   },
 ];

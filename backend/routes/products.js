@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
+const productController = require("../controllers/productController");
 
 // GET ALL PRODUCTS
 router.get("/", async (req, res) => {
@@ -42,4 +43,9 @@ router.get("/:productId", async (req, res) => {
   );
 });
 
+// INSERT NEW PRODUCT
+router.post("/create", productController.create_product);
+
+// DELETE PRODUCT
+router.post("/delete", productController.remove_product);
 module.exports = router;
