@@ -12,6 +12,8 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { ManageProductComponent } from './admin/product/manage-product.component';
 import { AdminGuardService } from './guards/admin-guard.service';
 import { CreateProductComponent } from './admin/product/create/create-product.component';
+import { UpdateProductComponent } from './admin/product/update/update-product.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   { path: 'product/:id', component: ProductComponent },
+  { path: 'products/:category', component: HomeComponent},
   { path: 'cart', component: CartComponent },
   {
     path: 'checkout',
@@ -35,8 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    component: OrderHistoryComponent,
-    canActivate: [AuthGuardService],
+    component: AboutComponent,
   },
   {
     path: 'admin/products',
@@ -48,6 +50,12 @@ const routes: Routes = [
     component: CreateProductComponent,
     canActivate: [AdminGuardService],
   },
+  {
+    path: 'admin/products/update/:id',
+    component: UpdateProductComponent,
+    canActivate: [AdminGuardService],
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({

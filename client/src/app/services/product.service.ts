@@ -13,11 +13,13 @@ export class ProductService {
 
   constructor(private http: HttpClient, private _api: ApiService) {}
 
-  getAllProducts(limitOfResults = 9, page): Observable<Products> {
+
+  getAllProducts(limitOfResults = 9, page, category = 'all'): Observable<Products> {
     return this.http.get<Products>(this.url + 'products', {
       params: {
         limit: limitOfResults.toString(),
         page: page,
+        category: category
       },
     });
   }
@@ -30,6 +32,18 @@ export class ProductService {
   createProduct(name, desc, price, stock, img ): Observable<any> {
     
     return this._api.postTypeRequest('products/create', {
+      name: name,
+      desc: desc,
+      price: price,
+      stock: stock,
+      img: img
+    });
+  }
+
+  updateProduct(id, name, desc, price, stock, img ): Observable<any> {
+    
+    return this._api.postTypeRequest('products/update', {
+      id: id,
       name: name,
       desc: desc,
       price: price,

@@ -40,6 +40,7 @@ import { ProductComponent } from './product/product.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './services/interceptor.service';
 import { CreateProductComponent } from './admin/product/create/create-product.component';
+import { UpdateProductComponent } from './admin/product/update/update-product.component';
 
 registerLocaleData(es);
 
@@ -58,7 +59,8 @@ registerLocaleData(es);
     FooterComponent,
     ProductCardComponent,
     ManageProductComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    UpdateProductComponent
   ],
   imports: [
     BrowserModule,

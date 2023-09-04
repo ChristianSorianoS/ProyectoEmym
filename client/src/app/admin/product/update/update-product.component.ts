@@ -1,30 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
-
-// import Swiper core and required components
-import { Product } from 'src/app/shared/models/product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-create-product',
-  templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.scss'],
+  selector: 'app-update-product',
+  templateUrl: './update-product.component.html',
+  styleUrls: ['./update-product.component.scss'],
 })
-export class CreateProductComponent implements OnInit {
+export class UpdateProductComponent implements OnInit {
   loading = false;
   productForm! : FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private _route: ActivatedRoute,
     private productService: ProductService,
-    private notification: NzNotificationService
-  ) {}
-
-  ngOnInit(): void {
+    private notification: NzNotificationService,
+    private route: ActivatedRoute,
+  ) { 
     this.productForm = this.fb.group({
+      id: [null, [Validators.required]],
       nombre: [null, [Validators.required]],
       desc: [null, [Validators.required]],
       precio: [null, [Validators.required]],
@@ -33,7 +29,14 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    this.loading = true;
+    const productId = this.route.snapshot.paramMap.get('id');
+    if(productId) this.getProduct(productId);
+  }
+
   submitProduct(): void {
+    const id = this.productForm.get('id').value;
     const name = this.productForm.get('nombre').value;
     const price = this.productForm.get('precio').value;
     const desc = this.productForm.get('desc').value;
@@ -42,15 +45,14 @@ export class CreateProductComponent implements OnInit {
     console.log(name);
     this.loading = true;
     setTimeout(() => {
-      this.productService
-        .createProduct(name,desc,price,stock,img)
+      this.productService.updateProduct(id, name,desc,price,stock,img)
         .subscribe(
           (res: any) => {
             console.log(res);
             this.loading = false;
             this.notification.create(
               'success',
-              'Producto agregado',
+              'Producto actualizado',
               `${res.message}`
             );
           },
@@ -65,5 +67,22 @@ export class CreateProductComponent implements OnInit {
           }
         );
     }, 750);
+  }
+
+  getProduct(id){
+    setTimeout(() => {
+      this.productService.getSingleProduct(id).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.productForm.setValue({id: res.id, nombre: res.title, desc: res.description, precio: res.price, stock: res.quantity, img: res.image})
+          this.loading = false;
+        },
+        (err) => {
+          console.log(err);
+          this.loading = false;
+        }
+      );
+    }, 500);
+    
   }
 }

@@ -1,12 +1,12 @@
 import {
   Component,
   OnInit,
-  ViewEncapsulation,
-  HostListener,
+  ViewEncapsulation
 } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { Products, Product } from '../shared/models/product.model';
+import { Product } from '../shared/models/product.model';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +16,7 @@ import { Products, Product } from '../shared/models/product.model';
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
-  categories: any[] = [
-    {
-      name: 'Panaderia',
-    },
-    {
-      name: 'Pasteleria',
-    },
-  ];
+  category;
   loading = false;
   productPageCounter = 1;
   additionalLoading = false;
@@ -31,42 +24,39 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private route: ActivatedRoute,
     private cartService: CartService
-  ) {}
-
-  public screenWidth: any;
-  public screenHeight: any;
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.screenWidth = window.innerWidth;
-    this.screenHeight = window.innerHeight;
+  ) {
+    this.category = this.route.snapshot.paramMap.get('category') ?? 'all';
   }
 
   ngOnInit(): void {
-    this.screenWidth = window.innerWidth;
-    this.screenHeight = window.innerHeight;
-    this.loading = true;
-    setTimeout(() => {
-      this.productService.getAllProducts(9, this.productPageCounter).subscribe(
-        (res: any) => {
-          console.log(res);
-          this.products = res;
-          this.loading = false;
-        },
-        (err) => {
-          console.log(err);
-          this.loading = false;
-        }
-      );
-    }, 500);
+    this.route.params.subscribe(x => {
+      this.category = this.route.snapshot.paramMap.get('category') ?? 'all';
+      this.loading = true;
+      this.productPageCounter = 1;
+      setTimeout(() => {
+        this.productService.getAllProducts(9, this.productPageCounter, this.category).subscribe(
+          (res: any) => {
+            console.log(res);
+            this.products = res;
+            this.loading = false;
+          },
+          (err) => {
+            console.log(err);
+            this.loading = false;
+          }
+        );
+      }, 500);
+    });
   }
 
   showMoreProducts(): void {
     this.additionalLoading = true;
     this.productPageCounter = this.productPageCounter + 1;
+    const category = this.route.snapshot.paramMap.get('category') ?? 'all';
     setTimeout(() => {
-      this.productService.getAllProducts(9, this.productPageCounter).subscribe(
+      this.productService.getAllProducts(9, this.productPageCounter, category).subscribe(
         (res: any) => {
           console.log(res);
           this.products = [...this.products, ...res];

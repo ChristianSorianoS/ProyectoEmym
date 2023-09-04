@@ -1,44 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { map } from 'rxjs/operators';
-
-// import Swiper core and required components
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Virtual,
-  Zoom,
-  Autoplay,
-  Thumbs,
-  Controller,
-} from 'swiper/core';
-import { CartService } from '../../services/cart.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Product } from 'src/app/shared/models/product.model';
-
-// install Swiper components
-SwiperCore.use([
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Virtual,
-  Zoom,
-  Autoplay,
-  Thumbs,
-  Controller,
-]);
-
 @Component({
   selector: 'app-manage-product',
   templateUrl: './manage-product.component.html',
   styleUrls: ['./manage-product.component.scss'],
 })
 export class ManageProductComponent implements OnInit {
-  id: number;
-  product: any;
   loading = false;
   products: Product[] = [];
   checked = false;
@@ -50,24 +20,12 @@ export class ManageProductComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private productService: ProductService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
-    setTimeout(() => {
-      this.productService.getAllProducts(9, 1).subscribe(
-        (res: any) => {
-          console.log(res);
-          this.products = res;
-          this.loading = false;
-          this.product = res[0];
-        },
-        (err) => {
-          console.log(err);
-          this.loading = false;
-        }
-      );
-    }, 500);
+    this.loading = true; 
+    this.loadProducts();
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -105,12 +63,45 @@ export class ManageProductComponent implements OnInit {
 
   handleOk(): void {
     this.loading = true;
-    const id = this.setOfCheckedId.size[0];
-    console.log(id)
+    this.setOfCheckedId.forEach(id => {
+      setTimeout(() => {
+        this.productService.deleteProduct(id).subscribe(
+          (res: any) => {
+            console.log(res);
+            this.loading = false;
+            this.notification.create(
+              'success',
+              'Producto eliminado',
+              `${res.message}`
+            );
+          },
+          (err) => {
+            console.log(err);
+            this.loading = false;
+            this.notification.create(
+              'error',
+              'Error',
+              `${err.message}`
+            );
+          }
+        );
+      }, 500);
+    })
+    this.loadProducts();
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  loadProducts(): void{
+    this.loading = true;
     setTimeout(() => {
-      this.productService.deleteProduct(id).subscribe(
+      this.productService.getAllProducts(9999, 1).subscribe(
         (res: any) => {
           console.log(res);
+          this.products = res;
           this.loading = false;
         },
         (err) => {
@@ -119,10 +110,5 @@ export class ManageProductComponent implements OnInit {
         }
       );
     }, 500);
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
   }
 }

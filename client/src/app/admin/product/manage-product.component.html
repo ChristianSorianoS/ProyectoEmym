@@ -29,6 +29,7 @@
     <thead>
       <tr>
         <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+        <th>Id</th>
         <th>Nombre</th>
         <th>Cantidad</th>
         <th>Descripcion</th>
@@ -43,13 +44,25 @@
           [nzChecked]="setOfCheckedId.has(item.id)"
           (nzCheckedChange)="onItemChecked(item.id, $event)"
         ></td>
+        <td>{{ item.id }}</td>
         <td>{{ item.title }}</td>
         <td>{{ item.quantity }}</td>
         <td>{{ item.short_desc }}</td>
         <td>{{ item.price }}</td>
         <td>{{ item.category }}</td>
-        <td><a>Modificar</a> - <a>Eliminar</a></td>
+        <td><a routerLink="update/{{item.id}}">Modificar</a></td>
       </tr>
     </tbody>
   </nz-table>
+  </div>
+</div>
+<div *ngIf="loading" class="products__loading">
+  <ng-template #indicatorTemplate>
+    <i
+      nz-icon
+      nzType="loading"
+      [ngStyle]="{ 'font-size': '2rem', margin: '0 auto' }"
+    ></i>
+  </ng-template>
+  <nz-spin nzSimple [nzIndicator]="indicatorTemplate"> </nz-spin>
 </div>

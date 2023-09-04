@@ -39,12 +39,10 @@ export class CartService {
       if (quantity) this.cartData.products.push(product);
       else this.cartData.products.push({ ...product, quantity: 1 });
     } else {
-      // copy array, find item index and update
       let updatedProducts = [...this.cartData.products];
       let productIndex = updatedProducts.findIndex((prod) => prod.id == id);
       let product = updatedProducts[productIndex];
 
-      // if no quantity, increment
       if (quantity) {
         updatedProducts[productIndex] = {
           ...product,

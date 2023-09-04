@@ -1,8 +1,20 @@
-const { createProduct, removeProduct } = require("../services/productService");
+const { createProduct, removeProduct, updateProduct } = require("../services/productService");
 
 exports.create_product = async (req, res, next) => {
   const { name, desc, price, stock, img } = req.body;
   createProduct({ name, desc, price, stock, img })
+    .then((result) => {
+      res.status(result.statusCode).send({ ...result });
+    })
+    .catch((err) => {
+      const { statusCode = 400, message } = err;
+      res.status(statusCode).send({ message }) && next(err);
+    });
+};
+
+exports.update_product = async (req, res, next) => {
+  const { id, name, desc, price, stock, img } = req.body;
+  updateProduct({ id, name, desc, price, stock, img })
     .then((result) => {
       res.status(result.statusCode).send({ ...result });
     })
