@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "set NODE_ENV=production&& node app",
-    "dev": "set NODE_ENV=development&& nodemon app"
+    "dev": "set NODE_ENV=development&& nodemon app",
+    "dev:local": "set NODE_ENV=local&& nodemon app"
   },
   "author": "Christian Soriano",
   "license": "MIT",
