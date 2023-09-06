@@ -8,7 +8,6 @@ const cors = require("cors");
 dotenv.config({
   path: path.join(__dirname, `env/${process.env.NODE_ENV}.env`),
 }); 
-console.log(path.join(__dirname, `env/${process.env.NODE_ENV}.env`));
 // Initialize express app
 const app = express();
 
@@ -20,10 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 
 // Router index
 const indexRouter = require("./routes/index");
-app.use("/", indexRouter);
+app.use("/api/v1/", indexRouter);
 
 // Health check
-app.get("/", (req, res) => {
+app.get("/api/v1/health", (req, res) => {
   res.status(200).send("Health Check");
 });
 
