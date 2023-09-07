@@ -6,6 +6,6 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
-
- [dev]
-  envFiles = ["env/development.local", ".env"] 
+[build]
+  command = "ng build --prod"
+  publish = "dist/client"
