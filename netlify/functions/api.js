@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Router index
-const indexRouter = require("../../../backend/routes/index");
+const indexRouter = require("../../backend/routes/index");
 
 // Health check
 app.get("/api/v1/health", (req, res) => {
