@@ -81,7 +81,7 @@ export class ProductComponent implements OnInit {
     this._cart.addProduct({
       id: this.id,
       price: this.product.price,
-      quantity: this.quantity,
+      quantity: this.quantityToOrder,
       image: this.product.image,
       title: this.product.title,
       maxQuantity: this.product.quantity,
