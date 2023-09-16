@@ -43,12 +43,12 @@ router.get("/:productId", async (req, res) => {
   );
 });
 
-// INSERT NEW PRODUCT
+// INSERTAR NUEVO PRODUCTO
 router.post("/create", productController.create_product);
 
-// UPDATE NEW PRODUCT
+// MODIFICAR UN PRODUCTO
 router.post("/update", productController.update_product);
 
-// DELETE PRODUCT
+// BORRAR UN PRODUCTO
 router.post("/delete", productController.remove_product);
 module.exports = router;

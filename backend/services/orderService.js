@@ -22,9 +22,9 @@ exports.createOrder = async (params) => {
               (err, result) => {
                 if (err) reject({ message: err, statusCode: 500 });
 
-                let productQuantity = result[0].quantity; // db product
+                let productQuantity = result[0].quantity; 
 
-                // deduct the quantity from products that were ordered in db
+                // CAPTAR LA CANTIDAD DE PRODUCTOS QUE ESTÁN EN LA ORDEN
                 let updatedQuantity = productQuantity - prod.quantity;
                 if (updatedQuantity > 0) {
                   productQuantity = updatedQuantity;
