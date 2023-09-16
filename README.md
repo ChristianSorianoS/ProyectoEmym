@@ -58,7 +58,7 @@ npm install
 
 cd.. // para regresar a <nombre_carpeta>
 cd client
-npm install
+npm install --force
 ```
 
 Después de toda la instalación, debe ejecutar el servidor y el cliente ejecutando estos comandos, cada uno en su propio directorio.
