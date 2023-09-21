@@ -3,8 +3,8 @@ const db = require("../database/db");
 exports.createOrder = async (params) => {
   const { userId, cart } = params;
 
-  if (!cart) throw { message: "cart was not provided", statusCode: 400 };
-  if (!userId) throw { message: "userId was not provided", statusCode: 400 };
+  if (!cart) throw { message: "El carro no ha sido encontrado", statusCode: 400 };
+  if (!userId) throw { message: "El usuario no ha sido encontrado", statusCode: 400 };
 
   return new Promise((resolve, reject) => {
     db.query(
@@ -69,8 +69,8 @@ exports.createOrder = async (params) => {
 exports.getSingleOrder = async (params) => {
   const { orderId, userId } = params;
 
-  if (!orderId) throw { message: "orderId was not provided", statusCode: 400 };
-  if (!userId) throw { message: "userId was not provided", statusCode: 400 };
+  if (!orderId) throw { message: "No se encuentra la orden", statusCode: 400 };
+  if (!userId) throw { message: "No se encuentra el usuario", statusCode: 400 };
 
   return new Promise((resolve, reject) => {
     db.query(
@@ -95,7 +95,7 @@ exports.getSingleOrder = async (params) => {
 exports.getOrders = async (params) => {
   const { userId } = params;
 
-  if (!userId) throw { message: "userId was not provided", statusCode: 400 };
+  if (!userId) throw { message: "El ususario no fue encontrado", statusCode: 400 };
 
   return new Promise((resolve, reject) => {
     db.query(
